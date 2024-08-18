@@ -5,12 +5,15 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UrlModule } from './url/url.module';
 import configuration from './config/configuration';
+import {CacheModule} from "@nestjs/cache-manager";
+import {RedisOptions} from "./config/redis.options";
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       load: [configuration],
     }),
+    CacheModule.registerAsync(RedisOptions),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
