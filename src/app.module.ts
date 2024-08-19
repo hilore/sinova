@@ -7,6 +7,8 @@ import { UrlModule } from './url/url.module';
 import configuration from './config/configuration';
 import {CacheModule} from "@nestjs/cache-manager";
 import {RedisOptions} from "./config/redis.options";
+import {ScheduleModule} from "@nestjs/schedule";
+import { SyncModule } from './sync/sync.module';
 
 @Module({
   imports: [
@@ -14,6 +16,7 @@ import {RedisOptions} from "./config/redis.options";
       load: [configuration],
     }),
     CacheModule.registerAsync(RedisOptions),
+    ScheduleModule.forRoot(),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
@@ -22,6 +25,7 @@ import {RedisOptions} from "./config/redis.options";
       inject: [ConfigService]
     }),
     UrlModule,
+    SyncModule,
   ],
   controllers: [AppController],
   providers: [AppService],

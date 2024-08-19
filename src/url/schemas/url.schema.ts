@@ -10,6 +10,9 @@ export class Url {
 
   @Prop({required: true})
   code: string;
+
+  @Prop({required: false, default: 0})
+  clicks: number
 }
 
 export const UrlSchema = SchemaFactory.createForClass(Url);
