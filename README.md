@@ -5,6 +5,8 @@ SINOVA <a href="https://docs.google.com/document/d/1c39vzhs7fJtoeJLN7nLjZozOl_fC
 This NestJS backend application introduces link shortening functionality. **MongoDB** is used for persistent data storage, **Redis** for cache and rate limiting.
 You should also have **Docker** installed.
 
+To check the API you can go to <a href="http://ec2-16-170-245-217.eu-north-1.compute.amazonaws.com:4000/api">resource</a>
+
 ## Installation
 
 ```bash
