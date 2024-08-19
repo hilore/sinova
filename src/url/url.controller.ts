@@ -4,8 +4,11 @@ import {
   Post,
   Param,
   Body,
+  UsePipes,
   UseFilters,
+  ValidationPipe
 } from '@nestjs/common';
+import {CreateUrlDto} from "./dto/createUrl.dto";
 import {UrlService} from "./url.service";
 import {AllExceptionsFilter} from "../exceptions/AllExceptionsFilter";
 import {ApiTags, ApiOperation, ApiParam, ApiBody, ApiResponse} from "@nestjs/swagger";
@@ -74,6 +77,7 @@ export class UrlController {
     return {clicks};
   }
 
+  @UsePipes(new ValidationPipe())
   @Post("/shorten")
   @ApiOperation({summary: "Shorten the URL link"})
   @ApiBody({
@@ -91,6 +95,10 @@ export class UrlController {
     description: "The URL have been successfully shortened"
   })
   @ApiResponse({
+    status: 400,
+    description: "The given link value is not a URL"
+  })
+  @ApiResponse({
     status: 429,
     description: "Rate limit exceeded"
   })
@@ -98,7 +106,7 @@ export class UrlController {
     status: 500,
     description: "Internal Server Error"
   })
-  async saveUrl(@Body() dto: {link: string}) {
+  async saveUrl(@Body() dto: CreateUrlDto) {
     const url = await this.urlService.saveUrl(dto.link);
     return {code: url.code};
   }
