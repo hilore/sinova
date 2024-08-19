@@ -91,7 +91,7 @@ export class UrlController {
     description: "The URL link to be shortened"
   })
   @ApiResponse({
-    status: 200,
+    status: 201,
     description: "The URL have been successfully shortened"
   })
   @ApiResponse({
