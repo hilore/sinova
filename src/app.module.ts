@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -9,6 +9,7 @@ import {CacheModule} from "@nestjs/cache-manager";
 import {RedisOptions} from "./config/redis.options";
 import {ScheduleModule} from "@nestjs/schedule";
 import { SyncModule } from './sync/sync.module';
+import {RateLimitMiddleware} from "./rate-limit/rate-limit.middleware";
 
 @Module({
   imports: [
@@ -30,4 +31,10 @@ import { SyncModule } from './sync/sync.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(RateLimitMiddleware)
+      .forRoutes("*")
+  }
+}
