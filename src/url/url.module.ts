@@ -9,6 +9,7 @@ import {Url, UrlSchema} from "./schemas/url.schema";
     MongooseModule.forFeature([{name: Url.name, schema: UrlSchema}]),
   ],
   providers: [UrlService],
-  controllers: [UrlController]
+  controllers: [UrlController],
+  exports: [UrlService]
 })
 export class UrlModule {}
