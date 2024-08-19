@@ -75,7 +75,7 @@ export class UrlService {
     }
   }
 
-  private generateRandomString(): string {
+  generateRandomString(): string {
     return (Math.random()).toString(36).substring(6);
   }
 }
