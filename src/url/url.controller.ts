@@ -5,14 +5,11 @@ import {
   Param,
   Body,
   UseFilters,
-  UseInterceptors
 } from '@nestjs/common';
 import {UrlService} from "./url.service";
 import {AllExceptionsFilter} from "../exceptions/AllExceptionsFilter";
-import {CacheInterceptor} from "@nestjs/cache-manager";
 
 @UseFilters(AllExceptionsFilter)
-@UseInterceptors(CacheInterceptor)
 @Controller()
 export class UrlController {
   constructor(private readonly urlService: UrlService) {}
